@@ -1,0 +1,56 @@
+import {
+  convertDate,
+  getAllChallenges,
+  getChallengeDatesAndStatus,
+  gradientColors,
+} from '../lib/utils';
+import RemoveButton from '../components/RemoveButton';
+import { deleteChallenge } from '../lib/actions';
+import ConfettiShower from '../components/ConfettiShower';
+
+export default async function Page() {
+  const allChallenges = await getAllChallenges();
+
+  const result = await Promise.all(
+    allChallenges.map(async (c) => {
+      const datesAndStatus = await getChallengeDatesAndStatus(c.id.toString());
+      if (
+        datesAndStatus.filter((i) => i.status === 'completed').length === 30
+      ) {
+        return c;
+      }
+    })
+  );
+
+  return (
+    <div>
+      {/* If every element is defined */}
+      {!result.every((i) => !i) && (
+        <>
+          <ConfettiShower />
+          <ul className="grid grid-cols-3 mt-8 gap-4 px-16 portrait:grid-cols-1 portrait:px-4">
+            {result.map(
+              (r) =>
+                r && (
+                  <li
+                    className={`border rounded-md py-4 px-8 text-center ${
+                      gradientColors[r.id_color]
+                    } text-black`}
+                    key={r.id}
+                  >
+                    <p className={`text-xl`}>{r.title}</p>
+                    <span>
+                      Start date: {convertDate(new Date(r.startDate), 'en-US')}
+                    </span>
+                    <form action={deleteChallenge} className="mt-8 text-sm">
+                      <RemoveButton id={r.id.toString()} isToDelete />
+                    </form>
+                  </li>
+                )
+            )}
+          </ul>
+        </>
+      )}
+    </div>
+  );
+}
