@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {
   convertDate,
   getAllChallenges,
@@ -7,6 +8,7 @@ import {
 import RemoveButton from '../components/RemoveButton';
 import { deleteChallenge } from '../lib/actions';
 import ConfettiShower from '../components/ConfettiShower';
+import GoBackLink from '../components/GoBackLink';
 
 export default async function Page() {
   const allChallenges = await getAllChallenges();
@@ -22,10 +24,15 @@ export default async function Page() {
     })
   );
 
-  return (
+  return !result.length || result.every(i => !i) ? (
+    <div className="flex flex-col items-center mt-8">
+      <p>You haven&apos;t completed any challenges yet.</p>
+      <GoBackLink />
+    </div>
+  ) : (
     <div>
       {/* If every element is defined */}
-      {!result.every((i) => !i) && (
+      {/* {!result.every((i) => !i) && ( */}
         <>
           <ConfettiShower />
           <ul className="grid grid-cols-3 mt-8 gap-4 px-16 portrait:grid-cols-1 portrait:px-4">
@@ -50,7 +57,7 @@ export default async function Page() {
             )}
           </ul>
         </>
-      )}
+      {/* )} */}
     </div>
   );
 }
