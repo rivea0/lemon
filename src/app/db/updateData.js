@@ -19,7 +19,7 @@ export default async function updateRow(statusStr, title, dateStr) {
           if (error) {
             console.error(error.message);
           }
-          console.log(`Updated dates_entries with the ID: ${this.lastID}`);
+          console.log('Updated dates_entries');
         }
       );
     });
