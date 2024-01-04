@@ -41,8 +41,6 @@ export default function AddForm() {
   // }
 
   return (
-    <div className="flex flex-col items-center justify-center mt-8">
-      {/* <form onSubmit={handleSubmit}> */}
       <form
         action={createChallenge}
         className="flex flex-col justify-center items-center gap-24"
@@ -82,19 +80,5 @@ export default function AddForm() {
           </div>
         </fieldset>
       </form>
-      <Link href="/" className="mt-4 flex gap-1 items-center group">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="currentColor"
-          viewBox="0 0 256 256"
-          className="group-hover:-translate-x-1"
-        >
-          <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H107.31l18.35,18.34a8,8,0,0,1-11.32,11.32l-32-32a8,8,0,0,1,0-11.32l32-32a8,8,0,0,1,11.32,11.32L107.31,120H168A8,8,0,0,1,176,128Z"></path>
-        </svg>
-        <span className="">Go back</span>
-      </Link>
-    </div>
   );
 }
