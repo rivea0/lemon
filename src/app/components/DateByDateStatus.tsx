@@ -1,14 +1,10 @@
 import { DatesAndStatusObj, Status } from '../lib/types';
-import {
-  convertDate,
-  getChallengeDatesAndStatus,
-  sortByDate,
-} from '../lib/utils';
+import { convertDate, sortByDate } from '../lib/utils';
 
 export default async function DateByDateStatus({
-  challengeId,
+  datesAndStatus,
 }: {
-  challengeId: number;
+  datesAndStatus: DatesAndStatusObj[];
 }) {
   function colorForStatus(status: Status) {
     return status === 'completed'
@@ -17,8 +13,6 @@ export default async function DateByDateStatus({
       ? 'bg-red-400/25'
       : 'bg-orange-400/25';
   }
-
-  const result = await getChallengeDatesAndStatus(challengeId.toString());
 
   return (
     <table className="table-fixed w-96 text-center mt-8 portrait:w-auto">
@@ -29,7 +23,7 @@ export default async function DateByDateStatus({
         </tr>
       </thead>
       <tbody>
-        {result.sort(sortByDate).map((i: DatesAndStatusObj) => {
+        {datesAndStatus.sort(sortByDate).map((i: DatesAndStatusObj) => {
           return (
             <tr key={i.date}>
               <td className="py-4 px-8 border-[.05rem]">

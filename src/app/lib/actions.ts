@@ -5,6 +5,7 @@ import insertInto from '../db/addData';
 import { removeFrom, deleteFrom } from '../db/deleteData';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { getIdOfChallenge } from './readUtils';
 
 export async function createChallenge(formData: FormData) {
   'use server';
@@ -33,7 +34,9 @@ export async function setChallengeStatus(
     activeDate: formData.get('activeDate'),
   };
 
-  await updateRow(data.status, challengeTitle, data.activeDate);
+  const challengeId = await getIdOfChallenge(challengeTitle);
+
+  await updateRow(data.status, challengeId, data.activeDate);
 
   revalidatePath('/challenges/[challenge]', 'page');
 }
@@ -60,5 +63,5 @@ export async function deleteChallenge(formData: FormData) {
 
   await deleteFrom(data.challengeId);
 
-  revalidatePath('/');
+  revalidatePath('/removed-challenges/');
 }

@@ -1,38 +1,68 @@
 import Link from 'next/link';
-import { resolve } from 'node:path';
-import { existsSync } from 'fs';
-const sqlite3 = require('sqlite3').verbose();
 import {
   getCurrentChallenges,
   getChallengeDatesAndStatus,
-  getId,
-  sortByDate,
-} from '@/app/lib/utils';
-
+  getIdOfChallenge,
+  getChallengeData,
+} from '@/app/lib/readUtils';
+import { spanColors, sortByDate } from '@/app/lib/utils';
 import ChallengeBoxesContainer from './components/ChallengeBoxesContainer';
 import TrackerGrid from './components/TrackerGrid';
+import { Colors } from './lib/types';
 
 export default async function Home() {
-  const filepath = resolve('src', 'app', 'db', 'challenges.db');
-  if (!existsSync(filepath)) {
-    console.log('DB file not found.');
-  }
+  const notCompletedToday: { title: string; color: Colors }[] = [];
+  const currentChallenges = await getCurrentChallenges();
 
-  const db = new sqlite3.Database(filepath);
-  const challenges = await getCurrentChallenges();
-  const challengesValues = await Promise.all(
-    challenges.map(async (c) => {
-      const resultId = await getId(c.title, db);
-      const id = (resultId as { id: string }).id;
-      const datesAndStatus = await getChallengeDatesAndStatus(
-        (resultId as { id: string }).id
-      );
-      const title = c.title;
-      const idColor = c.id_color;
+  // Get id, color, and datesStatus of the current challenges
+  const challengesValues = currentChallenges?.length
+    ? await Promise.all(
+        currentChallenges.map(async (c) => {
+          const id = await getIdOfChallenge(c.title);
+          if (!id) {
+            return null;
+          }
+          const datesAndStatus = await getChallengeDatesAndStatus(id);
+          const challengeData = await getChallengeData(id);
+          if (challengeData && datesAndStatus) {
+            const color = challengeData.id_color;
+            datesAndStatus.map((d) => {
+              if (
+                d.date === new Date().toISOString().split('T')[0] &&
+                d.status === 'not-completed'
+              ) {
+                notCompletedToday.push({ title: c.title, color: c.id_color });
+              }
+            });
+            return { id, color, datesAndStatus };
+          }
+        })
+      )
+    : null;
 
-      return { id, title, idColor, datesAndStatus };
-    })
-  );
+  // const currentChallenges = await getCurrentChallenges();
+  // await Promise.all(currentChallenges.map(async c => {
+  //   const id = await getIdOfChallenge(c.title)
+  //   if (id) {
+  //     const datesAndStatus = await getChallengeDatesAndStatus(id)
+  //     const challengeData = await getChallengeData(id)
+
+  //     challengeData?.id_color, datesAndStatus
+  //   }
+  // }))
+  // const challengesValues = await Promise.all(
+  //   challenges.map(async (c) => {
+  //     const resultId = await getIdOfChallenge(c.title, db);
+  //     const id = (resultId as { id: string }).id;
+  //     const datesAndStatus = await getChallengeDatesAndStatus(
+  //       (resultId as { id: string }).id
+  //     );
+  //     const title = c.title;
+  //     const idColor = c.id_color;
+
+  //     return { id, title, idColor, datesAndStatus };
+  //   })
+  // );
 
   // const numberOfCompletedDays = res.filter(
   //   (i) => i.status === 'completed'
@@ -40,7 +70,7 @@ export default async function Home() {
 
   return (
     <>
-      <ChallengeBoxesContainer />
+      <ChallengeBoxesContainer currentChallenges={currentChallenges} />
       <div className="flex justify-center items-center mt-24">
         <Link
           href="/add-challenge"
@@ -59,17 +89,43 @@ export default async function Home() {
           Add new challenge
         </Link>
       </div>
-      <div className="flex justify-center mt-16">
-        <div className="grid grid-cols-2 w-max gap-2 portrait:grid-cols-1 px-2">
-          {challengesValues.map((c) => (
-            <TrackerGrid
-              key={c.id}
-              color={c.idColor}
-              datesAndStatusValues={c.datesAndStatus.sort(sortByDate)}
-            />
-          ))}
+      {challengesValues && (
+        <div className="flex flex-col justify-center items-center mt-4">
+          {notCompletedToday && (
+            <div className="carousel gap-2 px-2 mt-4 portrait:w-full border border-primary border-opacity-50 rounded shadow-xl">
+              <div>
+                <h1 className="text-lg font-semibold p-1">
+                  Today to complete:
+                </h1>
+              </div>
+              {notCompletedToday.map((challenge) => (
+                <div
+                  key={challenge.title}
+                  className={`carousel-item p-1 text-lg font-extrabold ${
+                    spanColors[challenge.color]
+                  }`}
+                >
+                  {challenge.title}
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className="grid grid-cols-2 w-max mt-8 gap-2 portrait:grid-cols-1 px-2 portrait:w-full">
+            {challengesValues.map((c) => {
+              return (
+                c && (
+                  <TrackerGrid
+                    key={c.id}
+                    color={c.color}
+                    datesAndStatusValues={c.datesAndStatus.sort(sortByDate)}
+                  />
+                )
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

@@ -4,17 +4,17 @@ import RadialProgress from './RadialProgress';
 
 export default function ProgressIndicators({
   numberOfCompletedDays,
-  challengeColor,
+  color,
 }: {
   numberOfCompletedDays: number;
-  challengeColor: Colors;
+  color: Colors;
 }) {
   return (
     <div className="flex justify-center items-center gap-32 px-4 portrait:gap-8 portrait:px-1">
-      <ProgressBar value={numberOfCompletedDays} color={challengeColor} />
+      <ProgressBar value={numberOfCompletedDays} color={color} />
       <RadialProgress
         numberOfCompletedDays={numberOfCompletedDays}
-        color={challengeColor}
+        color={color}
       />
     </div>
   );

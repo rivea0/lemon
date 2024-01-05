@@ -1,6 +1,7 @@
 import { resolve } from 'node:path';
 import { existsSync } from 'node:fs';
-import { getId, add30Days } from '../lib/utils';
+import { add30Days } from '../lib/utils';
+import { getIdOfChallenge } from '../lib/readUtils';
 
 const sqlite3 = require('sqlite3').verbose();
 
@@ -17,7 +18,7 @@ async function insertInto(data) {
 
 async function insertRow(db, data) {
   let { title, id_color, description, startDate } = data;
-  const dates = add30Days(startDate);
+
   // Default id_color
   if (!id_color) {
     id_color = 'yellow';
@@ -30,31 +31,33 @@ async function insertRow(db, data) {
       id_color,
       description,
       startDate,
-      function (error) {
+      async function (error) {
         if (error) {
           console.error(error.message);
         }
         console.log(`Inserted a row to challenges with the ID: ${this.lastID}`);
+        await insertDates(title, startDate, db);
       }
     );
-    getId(title, db).then((result) => {
-      dates.forEach((d) => {
-        db.run(
-          `INSERT INTO dates_entries(date, challengeId, status) VALUES(?, ?, ?);`,
-          d,
-          result.id,
-          'not-completed',
-          function (error) {
-            if (error) {
-              console.error(error.message);
-            }
-            console.log(
-              `Inserted a row to dates_entries with the ID: ${this.lastID}`
-            );
-          }
-        );
-      });
-    });
+
+    // dates.forEach((d) => {
+    //     db.run(
+    //       `INSERT INTO dates_entries(date, challengeId, status) VALUES(?, ?, ?);`,
+    //       d,
+    //       challengeId,
+    //       'not-completed',
+    //       function (error) {
+    //         if (error) {
+    //           console.error(error.message);
+    //         }
+    //         console.log(
+    //           `Inserted a row to dates_entries with the ID: ${this.lastID}`
+    //         );
+    //       }
+    //     );
+    //   });
+
+    // })
   } else if (description && !startDate) {
     db.run(
       `INSERT INTO challenges(title, id_color, description) VALUES(?, ?, ?);`,
@@ -74,31 +77,31 @@ async function insertRow(db, data) {
       title,
       id_color,
       startDate,
-      function (error) {
+      async function (error) {
         if (error) {
           console.error(error.message);
         }
         console.log(`Inserted a row to challenges with the ID: ${this.lastID}`);
+        await insertDates(title, startDate, db);
       }
     );
-    getId(title, db).then((result) => {
-      dates.forEach((d) => {
-        db.run(
-          `INSERT INTO dates_entries(date, challengeId, status) VALUES(?, ?, ?);`,
-          d,
-          result.id,
-          'not-completed',
-          function (error) {
-            if (error) {
-              console.error(error.message);
-            }
-            console.log(
-              `Inserted a row to dates_entries with the ID: ${this.lastID}`
-            );
-          }
-        );
-      });
-    });
+    // dates.forEach((d) => {
+    //   db.run(
+    //     `INSERT INTO dates_entries(date, challengeId, status) VALUES(?, ?, ?);`,
+    //     d,
+    //     challengeId,
+    //     'not-completed',
+    //     function (error) {
+    //       if (error) {
+    //         console.error(error.message);
+    //       }
+    //       console.log(
+    //         `Inserted a row to dates_entries with the ID: ${this.lastID}`
+    //       );
+    //     }
+    //   );
+    // });
+    // })
   } else {
     db.run(
       `INSERT INTO challenges(title, id_color) VALUES(?, ?);`,
@@ -109,6 +112,30 @@ async function insertRow(db, data) {
           console.error(error.message);
         }
         console.log(`Inserted a row with the ID: ${this.lastID}`);
+      }
+    );
+  }
+}
+
+async function insertDates(title, startDate, db) {
+  const dates = add30Days(startDate);
+
+  const challengeId = await getIdOfChallenge(title);
+
+  for (const d of dates) {
+    console.log('heere', challengeId, d);
+    db.run(
+      `INSERT INTO dates_entries(date, challengeId, status) VALUES(?, ?, ?);`,
+      d,
+      challengeId,
+      'not-completed',
+      function (error) {
+        if (error) {
+          console.error(error.message);
+        }
+        console.log(
+          `Inserted a row to dates_entries with the ID: ${this.lastID}`
+        );
       }
     );
   }

@@ -1,12 +1,18 @@
 import Link from 'next/link';
 import { gradientColors } from '../lib/utils';
-import type { Box } from '../lib/types';
+import type { Colors } from '../lib/types';
 
-export default function ChallengeBox({ title, id_color }: Box) {
+export default function ChallengeBox({
+  title,
+  color,
+}: {
+  title: string;
+  color: Colors;
+}) {
   return (
     <Link href={`/challenges/${encodeURIComponent(title)}/`}>
       <div
-        className={`rounded-md border-solid text-lg border p-4 ${gradientColors[id_color]}`}
+        className={`rounded-md border-solid text-lg border p-4 ${gradientColors[color]}`}
       >
         {title}
       </div>

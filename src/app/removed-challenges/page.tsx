@@ -1,4 +1,4 @@
-import { getAllChallenges } from '../lib/utils';
+import { getAllChallenges } from '../lib/readUtils';
 import { deleteChallenge } from '../lib/actions';
 import RemoveButton from '../components/RemoveButton';
 import LemonadeStandSvg from '../components/LemonadeStandSvg';
@@ -10,6 +10,7 @@ export default async function RemovedChallenges() {
 
   return (
     <div className="mt-8">
+      <h1 className="text-xl text-center">Removed Challenges</h1>
       {!removedChallenges.every((i) => !i) ? (
         <ul className="grid grid-cols-3 mt-8 gap-4 px-16 portrait:grid-cols-1 portrait:px-4">
           {removedChallenges.map(

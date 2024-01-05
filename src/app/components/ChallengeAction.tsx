@@ -1,23 +1,18 @@
 import { setChallengeStatus } from '../lib/actions';
-import { getCurrentChallenges, spanColors } from '../lib/utils';
+import { spanColors } from '../lib/utils';
 import DateActionContainer from './DateActionContainer';
 import ActionButtons from './ActionButtons';
 import { Colors } from '../lib/types';
 
-export default async function ChallengeAction({
+export default function ChallengeAction({
   challengeTitle,
-  idColor,
-  challengeId,
+  color,
+  startDateStr,
 }: {
   challengeTitle: string;
-  idColor: Colors;
-  challengeId: number;
+  color: Colors;
+  startDateStr: string | undefined;
 }) {
-  const challenges = await getCurrentChallenges();
-  const startDate = challenges
-    .map((c) => (c.id === challengeId ? c.startDate : null))
-    ?.pop();
-
   const setChallengeStatusWithTitle = setChallengeStatus.bind(
     null,
     challengeTitle
@@ -29,12 +24,12 @@ export default async function ChallengeAction({
         action={setChallengeStatusWithTitle}
         className="flex flex-col justify-center"
       >
-        <DateActionContainer startDateStr={startDate} />
+        <DateActionContainer startDateStr={startDateStr} />
         <h2 className="text-center mt-8 text-lg">
           Mark this day&apos;s{' '}
-          <span className={`font-bold ${spanColors[idColor]}`}>
-            {challengeTitle}
-          </span>{' '}
+          <span className={`font-bold ${spanColors[color]}`}>
+            {challengeTitle}{' '}
+          </span>
           as
         </h2>
         <ActionButtons />

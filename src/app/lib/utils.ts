@@ -1,6 +1,3 @@
-import { Database } from 'sqlite3';
-import { ChallengeObj, DatesAndStatusObj } from './types';
-
 export function convertDate(date: Date, language: string) {
   return date.toLocaleDateString(language, {
     year: 'numeric',
@@ -9,18 +6,20 @@ export function convertDate(date: Date, language: string) {
   });
 }
 
-export async function getId(title: string, db: Database) {
-  return new Promise((resolve, reject) => {
-    db.get('SELECT id FROM challenges WHERE title = ?', title, (err, res) => {
-      if (err) {
-        reject(err);
-      }
-      if (res) {
-        resolve(res);
-      }
-    });
-  });
-}
+// export async function getIdOfChallenge(title: string) {
+//   // return new Promise((resolve, reject) => {
+//   //   db.get('SELECT id FROM challenges WHERE title = ?', title, (err, res) => {
+//   //     if (err) {
+//   //       reject(err);
+//   //     }
+//   //     if (res) {
+//   //       resolve(res);
+//   //     }
+//   //   });
+//   // });
+//   const challenges = await getAllChallenges()
+//   return challenges.find(challenge => challenge.title === title)?.id
+// }
 
 export function add30Days(startDate: string) {
   const d = new Date(startDate);
@@ -36,39 +35,45 @@ export function add30Days(startDate: string) {
   return dates;
 }
 
-export async function getAllChallenges(): Promise<ChallengeObj[]> {
-  const data = await fetch(`${process.env.URL}/api/challenges/`, {
-    next: { revalidate: 0 },
-  });
-  const boxes = await data.json();
+// export async function getAllChallenges(): Promise<ChallengeObj[]> {
+//   const data = await fetch(`${process.env.URL}/api/challenges/`, {
+//     next: { revalidate: 0 },
+//   });
+//   const boxes = await data.json();
 
-  return boxes;
-}
+//   return boxes;
+// }
 
-export async function getCurrentChallenges() {
-  const allChallenges = await getAllChallenges();
-  return allChallenges.filter((c) => !c.deleted);
-}
+// export async function getCurrentChallenges() {
+//   const allChallenges = await getAllChallenges();
+//   return allChallenges.filter((c) => !c.deleted);
+// }
 
-export async function getChallengeColor(id: number) {
-  const challenges = await getAllChallenges();
-  const challengeFound = challenges.filter((challenge: ChallengeObj) =>
-    challenge.id === id ? challenge : ''
-  )[0];
+// export async function getChallengeData(id: number) {
+//   const allChallenges = await getAllChallenges()
 
-  return challengeFound && challengeFound.id_color;
-}
+//   return allChallenges.find(challenge => challenge.id === id)
+// }
 
-export async function getChallengeDatesAndStatus(
-  id: string
-): Promise<DatesAndStatusObj[]> {
-  const data = await fetch(`${process.env.URL}/api/dates/${id}`, {
-    next: { revalidate: 0 },
-  });
-  const result = await data.json();
+// export async function getChallengeColor(id: number) {
+//   const challenges = await getAllChallenges();
+//   const challengeFound = challenges.filter((challenge: ChallengeObj) =>
+//     challenge.id === id ? challenge : ''
+//   )[0];
 
-  return result;
-}
+//   return challengeFound && challengeFound.id_color;
+// }
+
+// export async function getChallengeDatesAndStatus(
+//   id: number
+// ): Promise<DatesAndStatusObj[]> {
+//   const data = await fetch(`${process.env.URL}/api/dates/${id.toString()}`, {
+//     next: { revalidate: 0 },
+//   });
+//   const result = await data.json();
+
+//   return result;
+// }
 
 export function sortByDate(a: { date: string }, b: { date: string }) {
   return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;

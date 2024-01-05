@@ -1,14 +1,16 @@
-import { getCurrentChallenges } from '../lib/utils';
 import ChallengeBox from './ChallengeBox';
-import type { Box } from '../lib/types';
+import type { ChallengeObj } from '../lib/types';
 
-export default async function ChallengeBoxesContainer() {
-  const challenges = await getCurrentChallenges();
+export default function ChallengeBoxesContainer({
+  currentChallenges,
+}: {
+  currentChallenges: ChallengeObj[] | null;
+}) {
   return (
     <div className="flex justify-center">
       <div className="carousel gap-3 portrait:w-full px-2 max-w-full mt-4">
-        {challenges &&
-          challenges.map((challenge: Box) => {
+        {currentChallenges &&
+          currentChallenges.map((challenge) => {
             return (
               <div
                 className={`carousel-item font-light text-black shadow-xl cursor-pointer 
@@ -17,7 +19,7 @@ export default async function ChallengeBoxesContainer() {
               >
                 <ChallengeBox
                   title={challenge.title}
-                  id_color={challenge.id_color}
+                  color={challenge.id_color}
                 />
               </div>
             );
