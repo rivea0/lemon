@@ -28,7 +28,7 @@ export default async function Home() {
             const color = challengeData.id_color;
             datesAndStatus.map((d) => {
               if (
-                d.date === new Date().toISOString().split('T')[0] &&
+                d.date === new Date().toLocaleDateString('en-CA').split('T')[0] &&
                 d.status === 'not-completed'
               ) {
                 notCompletedToday.push({ title: c.title, color: c.id_color });
@@ -92,7 +92,7 @@ export default async function Home() {
       {challengesValues && (
         <div className="flex flex-col justify-center items-center mt-4">
           {notCompletedToday && (
-            <div className="carousel gap-2 px-2 mt-4 portrait:w-full border border-primary border-opacity-50 rounded shadow-xl">
+            <div className="carousel gap-1 px-2 mt-4 portrait:w-full border border-primary border-opacity-50 rounded shadow-xl">
               <div>
                 <h1 className="text-lg font-semibold p-1">
                   Today to complete:
@@ -108,6 +108,11 @@ export default async function Home() {
                   {challenge.title}
                 </div>
               ))}
+              {notCompletedToday.length === 0 && (
+                <h1 className="p-1 text-lg text-green-400">
+                  All challenges completed! 🎉
+                </h1>
+              )}
             </div>
           )}
 

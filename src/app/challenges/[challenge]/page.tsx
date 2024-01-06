@@ -20,7 +20,7 @@ export default async function Page({
   const id = (await getIdOfChallenge(title)) as number;
   const datesAndStatus = await getChallengeDatesAndStatus(id);
   const challengeData = await getChallengeData(id);
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toLocaleDateString('en-CA').split('T')[0];
   const challengeColor = challengeData.id_color;
   const startDateStr = challengeData.startDate;
   const numberOfCompletedDays =
