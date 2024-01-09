@@ -27,7 +27,7 @@ function createTable(db) {
     `
   CREATE TABLE IF NOT EXISTS challenges (
     id INTEGER PRIMARY KEY,
-    title TEXT NOT NULL,
+    title TEXT NOT NULL UNIQUE,
     id_color TEXT NOT NULL,
     description TEXT,
     startDate TEXT,

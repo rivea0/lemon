@@ -7,7 +7,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getIdOfChallenge } from './readUtils';
 
-export async function createChallenge(formData: FormData) {
+export async function createChallenge(prevState: any, formData: FormData) {
   'use server';
 
   const data = {
@@ -17,8 +17,11 @@ export async function createChallenge(formData: FormData) {
     startDate: formData.get('startDate'),
   };
 
-  await insertInto(data);
-
+  try {
+    await insertInto(data);
+  } catch (error) {
+    return { message: `Failed to create challenge ${data.title}` };
+  }
   revalidatePath('/');
   redirect('/');
 }

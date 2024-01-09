@@ -1,9 +1,8 @@
-// 'use client'
+'use client';
 
 // import { FormEvent } from 'react'
 // import { useRouter } from 'next/navigation'
-
-import Link from 'next/link';
+import { useFormState } from 'react-dom';
 import { createChallenge } from '../lib/actions';
 import ColorDropdown from './ColorDropdown';
 import SubmitButton from './SubmitButton';
@@ -11,38 +10,46 @@ import DatePick from './DatePick';
 
 export default function AddForm() {
   // const router = useRouter()
-
   // async function handleSubmit(e: FormEvent<HTMLFormElement>) {
   //   e.preventDefault()
-
   //   const formData = new FormData(e.currentTarget)
   //   const response = await fetch('/api/submit', {
   //     method: 'POST',
   //     body: formData
   //   })
-
   //   router.push('/')
   // }
 
-  // async function createChallenge(formData: FormData) {
-  //   'use server';
+  const initialState = {
+    message: '',
+  };
 
-  //   const data = {
-  //     title: formData.get('title'),
-  //     id_color: formData.get('id_color'),
-  //     description: formData.get('description'),
-  //     startDate: formData.get('startDate'),
-  //   };
-
-  //   await insertInto(data);
-
-  //   revalidatePath('/');
-  //   redirect('/');
-  // }
-
+  const [state, formAction] = useFormState(createChallenge, initialState);
   return (
+    <>
+      {state.message && (
+        <div
+          role="alert"
+          className="alert alert-error w-max bg-red-400 text-white mb-4 rounded-md"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span>{state.message}</span>
+        </div>
+      )}
       <form
-        action={createChallenge}
+        action={formAction}
         className="flex flex-col justify-center items-center gap-24"
       >
         <fieldset
@@ -80,5 +87,6 @@ export default function AddForm() {
           </div>
         </fieldset>
       </form>
+    </>
   );
 }

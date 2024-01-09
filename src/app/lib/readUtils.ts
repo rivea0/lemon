@@ -29,6 +29,7 @@ export async function getAllChallenges(): Promise<ChallengeObj[]> {
   });
 }
 
+// Why not use db?
 export async function getIdOfChallenge(title: string) {
   const result = await fetch(`${process.env.URL}/api/challenges/`);
   const allChallenges = await result.json();
