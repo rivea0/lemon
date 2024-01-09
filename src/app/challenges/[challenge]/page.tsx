@@ -3,7 +3,7 @@ import {
   getIdOfChallenge,
   getChallengeData,
 } from '@/app/lib/readUtils';
-import { sortByDate } from '@/app/lib/utils';
+import { sortByDate, toYearMonthDay } from '@/app/lib/utils';
 import { removeChallenge } from '@/app/lib/actions';
 import ChallengeAction from '@/app/components/ChallengeAction';
 import DateByDateStatus from '@/app/components/DateByDateStatus';
@@ -20,7 +20,7 @@ export default async function Page({
   const id = (await getIdOfChallenge(title)) as number;
   const datesAndStatus = await getChallengeDatesAndStatus(id);
   const challengeData = await getChallengeData(id);
-  const today = new Date().toLocaleDateString('en-CA').split('T')[0];
+  const today = toYearMonthDay(new Date().toDateString());
   const challengeColor = challengeData.id_color;
   const startDateStr = challengeData.startDate;
   const numberOfCompletedDays =

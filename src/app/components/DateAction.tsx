@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { shiftDateUp, shiftDateDown } from '../lib/eventActions';
+import { toYearMonthDay } from '../lib/utils';
 
 export default function DateAction({
   dateToStart,
@@ -58,7 +59,7 @@ export default function DateAction({
           <input
             type="hidden"
             name="activeDate"
-            value={new Date(dateStr).toLocaleDateString('en-CA').split('T')[0]}
+            value={toYearMonthDay(new Date(dateStr).toDateString())}
           />
         </div>
         <p

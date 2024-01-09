@@ -5,7 +5,7 @@ import {
   getIdOfChallenge,
   getChallengeData,
 } from '@/app/lib/readUtils';
-import { spanColors, sortByDate } from '@/app/lib/utils';
+import { spanColors, sortByDate, toYearMonthDay } from '@/app/lib/utils';
 import ChallengeBoxesContainer from './components/ChallengeBoxesContainer';
 import TrackerGrid from './components/TrackerGrid';
 import { Colors } from './lib/types';
@@ -28,7 +28,7 @@ export default async function Home() {
             const color = challengeData.id_color;
             datesAndStatus.map((d) => {
               if (
-                d.date === new Date().toLocaleDateString('en-CA').split('T')[0] &&
+                d.date === toYearMonthDay(new Date().toDateString()) &&
                 d.status === 'not-completed'
               ) {
                 notCompletedToday.push({ title: c.title, color: c.id_color });
