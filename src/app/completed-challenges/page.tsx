@@ -42,7 +42,7 @@ export default async function Page() {
                 >
                   <p className={`text-xl`}>{r.title}</p>
                   <span>
-                    Start date: {convertDate(new Date(r.startDate), 'en-US')}
+                    Start date: {convertDate(r.startDate, 'en-US')}
                   </span>
                   <form action={deleteChallenge} className="mt-8 text-sm">
                     <RemoveButton id={r.id.toString()} isToDelete />

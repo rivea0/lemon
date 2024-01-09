@@ -6,11 +6,12 @@ export default function DateActionContainer({
 }: {
   startDateStr: string | undefined;
 }) {
-  const today = convertDate(new Date(), 'en-US');
+
+  const today = convertDate(new Date().toDateString(), 'en-US');
 
   const dateToStart = !startDateStr
     ? today
-    : convertDate(new Date(startDateStr), 'en-US');
+    : convertDate(startDateStr, 'en-US');
 
   return <DateAction dateToStart={dateToStart} today={today} />;
 }

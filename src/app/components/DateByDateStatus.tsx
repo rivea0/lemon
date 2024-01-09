@@ -27,7 +27,7 @@ export default async function DateByDateStatus({
           return (
             <tr key={i.date}>
               <td className="py-4 px-8 border-[.05rem]">
-                {convertDate(new Date(i.date), 'en-US')}
+                {convertDate(i.date, 'en-US')}
               </td>
               <td
                 className={`py-4 px-8 border-[.05rem] ${colorForStatus(

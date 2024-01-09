@@ -1,9 +1,20 @@
-export function convertDate(date: Date, language: string) {
-  return date.toLocaleDateString(language, {
+export function convertDate(s: string, language: string) {
+  const dateStr = toYearMonthDay(s)
+
+  return new Date(dateStr).toLocaleDateString(language, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
+}
+
+export function toYearMonthDay(s: string) {
+  const d_ = new Date(s)
+  if (d_.toString() === 'Invalid Date') {
+    throw new Error('Invalid Date!');
+  }
+
+  return d_.toLocaleDateString('en-CA').split('T')[0]
 }
 
 // export async function getIdOfChallenge(title: string) {
@@ -17,6 +28,7 @@ export function convertDate(date: Date, language: string) {
 //   //     }
 //   //   });
 //   // });
+//   or
 //   const challenges = await getAllChallenges()
 //   return challenges.find(challenge => challenge.title === title)?.id
 // }
