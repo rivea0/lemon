@@ -23,6 +23,7 @@ export default function DateAction({
               const result = await shiftDateDown(dateStr);
               setDateStr(result);
             }}
+            data-testid="shiftDownBtn"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -44,6 +45,7 @@ export default function DateAction({
               const result = await shiftDateUp(dateStr);
               setDateStr(result);
             }}
+            data-testid="shiftUpBtn"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

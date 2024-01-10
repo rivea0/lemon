@@ -41,6 +41,7 @@ export default function ProgressBar({
       className={`progress ${progressColors[color]} w-fit`}
       value={value.toString()}
       max="30"
+      data-testid="progressbar"
     ></progress>
   );
 }

@@ -20,6 +20,7 @@ export default function TrackerGrid({
                 height="32"
                 viewBox="0 0 256 256"
                 className={`${fillColors[color || 'yellow']}`}
+                data-testid="svgBox"
               >
                 <rect x="32" y="32" width="192" height="192" rx="16"></rect>
               </svg>
@@ -30,6 +31,7 @@ export default function TrackerGrid({
                 height="32"
                 viewBox="0 0 256 256"
                 className="fill-zinc-400/25"
+                data-testid="svgBox"
               >
                 <rect x="32" y="32" width="192" height="192" rx="16"></rect>
               </svg>
