@@ -1,7 +1,6 @@
 import { resolve } from 'node:path';
 import { existsSync } from 'node:fs';
 import { add30Days } from '../lib/utils';
-import { getIdOfChallenge } from '../lib/readUtils';
 
 const sqlite3 = require('sqlite3').verbose();
 
@@ -42,7 +41,7 @@ async function insertRow(db, data) {
             console.log(
               `Inserted a row to challenges with the ID: ${this.lastID}`
             );
-            insertDates(title, startDate, db).then(() => resolve());
+            insertDates(this.lastID, title, startDate, db).then(() => resolve());
           }
         }
       );
@@ -62,7 +61,7 @@ async function insertRow(db, data) {
             console.log(
               `Inserted a row to challenges with the ID: ${this.lastID}`
             );
-            insertDates(title, startDate, db).then(() => resolve());
+            insertDates(this.lastID, title, startDate, db).then(() => resolve());
           }
         }
       );
@@ -168,10 +167,8 @@ async function insertRow(db, data) {
 // }
 // }
 
-async function insertDates(title, startDate, db) {
+async function insertDates(challengeId, title, startDate, db) {
   const dates = add30Days(startDate);
-
-  const challengeId = await getIdOfChallenge(title);
 
   for (const d of dates) {
     try {
