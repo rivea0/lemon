@@ -13,13 +13,14 @@ export default function ChallengeBoxesContainer({
           currentChallenges.map((challenge) => {
             return (
               <div
-                className={`carousel-item font-light text-black shadow-xl cursor-pointer 
+                className={`carousel-item font-light text-black cursor-pointer
               }`}
                 key={challenge.title}
               >
                 <ChallengeBox
                   title={challenge.title}
                   color={challenge.id_color}
+                  description={challenge.description}
                 />
               </div>
             );
