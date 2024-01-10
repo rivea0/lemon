@@ -47,7 +47,7 @@ function createTable(db) {
     `
   CREATE TABLE IF NOT EXISTS dates_entries (
     date TEXT NOT NULL,
-    challengeId INTEGER,
+    challengeId INTEGER NOT NULL,
     status TEXT NOT NULL CHECK(status IN ('completed', 'not-completed', 'postponed')),
     PRIMARY KEY(date, challengeId),
     FOREIGN KEY(challengeId) REFERENCES challenges(id)
