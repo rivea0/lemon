@@ -37,6 +37,17 @@ export async function getIdOfChallenge(title: string) {
     (challenge: ChallengeObj) => challenge.title === title
   );
   return foundChallenge && foundChallenge.id;
+  // const db = await getDB()
+  // return new Promise((resolve, reject) => {
+  //   db.get('SELECT id FROM challenges WHERE title = ?', title, (err, res) => {
+  //     if (err) {
+  //       reject(err);
+  //     }
+  //     if (res) {
+  //       resolve(res);
+  //     }
+  //   });
+  // });
 }
 
 export async function getCurrentChallenges(): Promise<ChallengeObj[]> {
@@ -85,6 +96,24 @@ export async function getChallengeDatesAndStatus(
     db.all(
       'SELECT * FROM dates_entries WHERE challengeId = ?',
       id,
+      (err: Error, rows: []) => {
+        if (err) {
+          reject(err);
+        } else if (rows.length) {
+          resolve(rows);
+        } else {
+          resolve([]);
+        }
+      }
+    );
+  });
+}
+
+export async function getPostponedChallenges(): Promise<{challengeId: number, date: string}[]> {
+  const db = await getDB();
+  return new Promise((resolve, reject) => {
+    db.all(
+      "SELECT challengeId, date FROM dates_entries WHERE status = 'postponed'",
       (err: Error, rows: []) => {
         if (err) {
           reject(err);

@@ -110,7 +110,7 @@ export default async function Home() {
               ))}
               {notCompletedToday.length === 0 && (
                 <h1 className="p-1 text-lg text-green-400">
-                  All challenges completed! 🎉
+                  No challenges to complete! 🎉
                 </h1>
               )}
             </div>

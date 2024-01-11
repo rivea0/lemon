@@ -27,21 +27,22 @@ export async function createChallenge(prevState: any, formData: FormData) {
 }
 
 export async function setChallengeStatus(
-  challengeTitle: string,
-  formData: FormData
+  challengeTitle: string | null,
+  formData: FormData,
 ) {
   'use server';
 
   const data = {
     status: formData.get('status'),
     activeDate: formData.get('activeDate'),
+    challengeId:
+      challengeTitle ? (await getIdOfChallenge(challengeTitle)) : formData.get('challengeId'),
   };
 
-  const challengeId = await getIdOfChallenge(challengeTitle);
-
-  await updateRow(data.status, challengeId, data.activeDate);
+  await updateRow(data.status, data.challengeId, data.activeDate);
 
   revalidatePath('/challenges/[challenge]', 'page');
+  revalidatePath('/postponed-challenges');
 }
 
 export async function removeChallenge(formData: FormData) {

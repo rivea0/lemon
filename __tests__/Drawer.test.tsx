@@ -11,6 +11,15 @@ describe('Drawer', () => {
     ).toBeDefined();
   });
 
+  it('shows link to postponed challenges', () => {
+    render(<Drawer />);
+
+    expect(
+      screen.getByRole('link', { name: 'Postponed challenges' })
+    ).toBeDefined();
+  });
+
+
   it('shows link to removed challenges', () => {
     render(<Drawer />);
 

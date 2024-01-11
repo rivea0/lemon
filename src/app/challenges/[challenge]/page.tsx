@@ -26,7 +26,9 @@ export default async function Page({
   const numberOfCompletedDays =
     datesAndStatus?.filter((i) => i.status === 'completed').length || 0;
   const latestIncompleteDate =
-    datesAndStatus?.sort(sortByDate).find((i) => i.status === 'not-completed')
+    datesAndStatus
+      ?.sort(sortByDate)
+      .find((i) => i.status === 'not-completed' || i.status === 'postponed')
       ?.date || startDateStr;
   const todayIsCompleted = datesAndStatus?.find(
     (i) => i.date === today && i.status === 'completed'
