@@ -1,6 +1,6 @@
-import { Colors } from '../lib/types';
 import ProgressBar from './ProgressBar';
 import RadialProgress from './RadialProgress';
+import type { Colors } from '../lib/types';
 
 export default function ProgressIndicators({
   numberOfCompletedDays,

@@ -45,6 +45,6 @@ function lookUpDatesEntries(db) {
   });
 }
 
-const db = createDbConnection();
-lookUpChallenges(db);
+// const db = createDbConnection();
+// lookUpChallenges(db);
 // lookUpDatesEntries(db)

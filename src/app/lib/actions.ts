@@ -28,15 +28,16 @@ export async function createChallenge(prevState: any, formData: FormData) {
 
 export async function setChallengeStatus(
   challengeTitle: string | null,
-  formData: FormData,
+  formData: FormData
 ) {
   'use server';
 
   const data = {
     status: formData.get('status'),
     activeDate: formData.get('activeDate'),
-    challengeId:
-      challengeTitle ? (await getIdOfChallenge(challengeTitle)) : formData.get('challengeId'),
+    challengeId: challengeTitle
+      ? await getIdOfChallenge(challengeTitle)
+      : formData.get('challengeId'),
   };
 
   await updateRow(data.status, data.challengeId, data.activeDate);

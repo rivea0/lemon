@@ -41,7 +41,9 @@ async function insertRow(db, data) {
             console.log(
               `Inserted a row to challenges with the ID: ${this.lastID}`
             );
-            insertDates(this.lastID, title, startDate, db).then(() => resolve());
+            insertDates(this.lastID, title, startDate, db).then(() =>
+              resolve()
+            );
           }
         }
       );
@@ -61,111 +63,15 @@ async function insertRow(db, data) {
             console.log(
               `Inserted a row to challenges with the ID: ${this.lastID}`
             );
-            insertDates(this.lastID, title, startDate, db).then(() => resolve());
+            insertDates(this.lastID, title, startDate, db).then(() =>
+              resolve()
+            );
           }
         }
       );
     });
   }
 }
-
-// if (description && startDate) {
-//   db.run(
-//     `INSERT INTO challenges(title, id_color, description, startDate) VALUES(?, ?, ?, ?);`,
-//     title,
-//     id_color,
-//     description,
-//     startDate,
-//     async function (error) {
-//       if (error) {
-//         console.error(error.message);
-//         return;
-//       }
-//       console.log(`Inserted a row to challenges with the ID: ${this.lastID}`);
-//       await insertDates(title, startDate, db);
-//     }
-//   );
-
-//   // dates.forEach((d) => {
-//   //     db.run(
-//   //       `INSERT INTO dates_entries(date, challengeId, status) VALUES(?, ?, ?);`,
-//   //       d,
-//   //       challengeId,
-//   //       'not-completed',
-//   //       function (error) {
-//   //         if (error) {
-//   //           console.error(error.message);
-//   //         }
-//   //         console.log(
-//   //           `Inserted a row to dates_entries with the ID: ${this.lastID}`
-//   //         );
-//   //       }
-//   //     );
-//   //   });
-
-//   // })
-// } else if (description && !startDate) {
-//   db.run(
-//     `INSERT INTO challenges(title, id_color, description) VALUES(?, ?, ?);`,
-//     title,
-//     id_color,
-//     description,
-//     function (error) {
-//       if (error) {
-//         console.error(error.message);
-//         return;
-//       }
-//       console.log(`Inserted a row to challenges with the ID: ${this.lastID}`);
-//     }
-//   );
-// } else if (!description && startDate) {
-//   db.run(
-//     `INSERT INTO challenges(title, id_color, startDate) VALUES(?, ?, ?);`,
-//     title,
-//     id_color,
-//     startDate,
-//     async function (error) {
-//       if (error) {
-//         // console.error(error.message);
-//         // return;
-//         throw new Error(error.message)
-//       }
-//       console.log(`Inserted a row to challenges with the ID: ${this.lastID}`);
-//       await insertDates(title, startDate, db);
-//     }
-//   );
-//   // dates.forEach((d) => {
-//   //   db.run(
-//   //     `INSERT INTO dates_entries(date, challengeId, status) VALUES(?, ?, ?);`,
-//   //     d,
-//   //     challengeId,
-//   //     'not-completed',
-//   //     function (error) {
-//   //       if (error) {
-//   //         console.error(error.message);
-//   //       }
-//   //       console.log(
-//   //         `Inserted a row to dates_entries with the ID: ${this.lastID}`
-//   //       );
-//   //     }
-//   //   );
-//   // });
-//   // })
-// } else {
-//   db.run(
-//     `INSERT INTO challenges(title, id_color) VALUES(?, ?);`,
-//     title,
-//     id_color,
-//     function (error) {
-//       if (error) {
-//         console.error(error.message);
-//         return;
-//       }
-//       console.log(`Inserted a row with the ID: ${this.lastID}`);
-//     }
-//   );
-// }
-// }
 
 async function insertDates(challengeId, title, startDate, db) {
   const dates = add30Days(startDate);

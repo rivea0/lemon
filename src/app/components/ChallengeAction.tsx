@@ -2,7 +2,7 @@ import { setChallengeStatus } from '../lib/actions';
 import { spanColors } from '../lib/utils';
 import DateActionContainer from './DateActionContainer';
 import ActionButtons from './ActionButtons';
-import { Colors } from '../lib/types';
+import type { Colors } from '../lib/types';
 
 export default function ChallengeAction({
   challengeTitle,

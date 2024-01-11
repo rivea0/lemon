@@ -1,5 +1,5 @@
 import { fillColors } from '../lib/utils';
-import { Colors, DatesAndStatusObj } from '../lib/types';
+import type { Colors, DatesAndStatusObj } from '../lib/types';
 
 export default function TrackerGrid({
   datesAndStatusValues,

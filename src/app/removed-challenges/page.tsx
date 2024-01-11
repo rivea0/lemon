@@ -1,8 +1,8 @@
 import { getAllChallenges } from '../lib/readUtils';
 import { deleteChallenge } from '../lib/actions';
+import { gradientColors } from '../lib/utils';
 import RemoveButton from '../components/RemoveButton';
 import LemonadeStandSvg from '../components/LemonadeStandSvg';
-import { gradientColors } from '../lib/utils';
 
 export default async function RemovedChallenges() {
   const allChallenges = await getAllChallenges();
@@ -13,7 +13,6 @@ export default async function RemovedChallenges() {
       {!removedChallenges.every((i) => !i) ? (
         <>
           <h1 className="text-xl text-center">Removed Challenges</h1>
-
           <ul className="grid grid-cols-3 mt-8 gap-4 px-16 portrait:grid-cols-1 portrait:px-4">
             {removedChallenges.map(
               (c) =>

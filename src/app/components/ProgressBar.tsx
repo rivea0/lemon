@@ -1,4 +1,4 @@
-import { Colors } from '../lib/types';
+import type { Colors } from '../lib/types';
 
 export default function ProgressBar({
   value,

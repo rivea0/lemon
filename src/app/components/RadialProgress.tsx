@@ -1,5 +1,5 @@
 import { spanColors } from '../lib/utils';
-import { Colors } from '../lib/types';
+import type { Colors } from '../lib/types';
 
 export default function RadialProgress({
   numberOfCompletedDays,

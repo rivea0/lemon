@@ -8,7 +8,7 @@ import {
 import { spanColors, sortByDate, toYearMonthDay } from '@/app/lib/utils';
 import ChallengeBoxesContainer from './components/ChallengeBoxesContainer';
 import TrackerGrid from './components/TrackerGrid';
-import { Colors } from './lib/types';
+import type { Colors } from './lib/types';
 
 export default async function Home() {
   const notCompletedToday: { title: string; color: Colors }[] = [];
@@ -39,34 +39,6 @@ export default async function Home() {
         })
       )
     : null;
-
-  // const currentChallenges = await getCurrentChallenges();
-  // await Promise.all(currentChallenges.map(async c => {
-  //   const id = await getIdOfChallenge(c.title)
-  //   if (id) {
-  //     const datesAndStatus = await getChallengeDatesAndStatus(id)
-  //     const challengeData = await getChallengeData(id)
-
-  //     challengeData?.id_color, datesAndStatus
-  //   }
-  // }))
-  // const challengesValues = await Promise.all(
-  //   challenges.map(async (c) => {
-  //     const resultId = await getIdOfChallenge(c.title, db);
-  //     const id = (resultId as { id: string }).id;
-  //     const datesAndStatus = await getChallengeDatesAndStatus(
-  //       (resultId as { id: string }).id
-  //     );
-  //     const title = c.title;
-  //     const idColor = c.id_color;
-
-  //     return { id, title, idColor, datesAndStatus };
-  //   })
-  // );
-
-  // const numberOfCompletedDays = res.filter(
-  //   (i) => i.status === 'completed'
-  // ).length;
 
   return (
     <>
@@ -115,7 +87,6 @@ export default async function Home() {
               )}
             </div>
           )}
-
           <div className="grid grid-cols-2 w-max mt-8 gap-2 portrait:grid-cols-1 px-2 portrait:w-full">
             {challengesValues.map((c) => {
               return (

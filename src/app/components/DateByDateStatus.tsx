@@ -1,5 +1,5 @@
-import { DatesAndStatusObj, Status } from '../lib/types';
 import { convertDate, sortByDate } from '../lib/utils';
+import type { DatesAndStatusObj, Status } from '../lib/types';
 
 export default async function DateByDateStatus({
   datesAndStatus,

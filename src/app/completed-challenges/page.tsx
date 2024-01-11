@@ -1,9 +1,9 @@
 import { convertDate, gradientColors } from '../lib/utils';
 import { getAllChallenges, getChallengeDatesAndStatus } from '../lib/readUtils';
-import RemoveButton from '../components/RemoveButton';
 import { deleteChallenge } from '../lib/actions';
 import ConfettiShower from '../components/ConfettiShower';
 import GoBackLink from '../components/GoBackLink';
+import RemoveButton from '../components/RemoveButton';
 
 export default async function Page() {
   const allChallenges = await getAllChallenges();
