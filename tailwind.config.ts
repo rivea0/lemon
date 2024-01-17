@@ -21,7 +21,7 @@ const config: Config = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light", "dark", "dim", "nord", "autumn", "lemonade", "dracula"],
+    themes: ["light", "dark", "dim", "nord", "autumn", "lemonade", "dracula", "synthwave"],
   },
   // Make the DatePicker dark mode compatible with daisyui dark theme
   darkMode: ['class', '[data-theme="dark"]'],

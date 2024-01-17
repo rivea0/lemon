@@ -16,6 +16,7 @@ describe('ThemeSwitcher', () => {
     expect(screen.getByDisplayValue('dim')).toBeDefined();
     expect(screen.getByDisplayValue('lemonade')).toBeDefined();
     expect(screen.getByDisplayValue('dracula')).toBeDefined();
+    expect(screen.getByDisplayValue('synthwave')).toBeDefined();
     expect(screen.getByDisplayValue('nord')).toBeDefined();
     expect(screen.getByDisplayValue('autumn')).toBeDefined();
   });

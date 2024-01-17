@@ -82,6 +82,16 @@ export default function ThemeSwitcher() {
             onChange={() => setTheme('dracula')}
           />
         </li>
+        <li>
+          <input
+            type="radio"
+            name="theme-dropdown"
+            className="theme-controller btn btn-sm btn-block justify-start"
+            aria-label="Synthwave"
+            value="synthwave"
+            onChange={() => setTheme('synthwave')}
+          />
+        </li>
 
         <li>
           <input
