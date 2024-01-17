@@ -62,7 +62,7 @@ export default async function Home() {
         </Link>
       </div>
       {challengesValues && (
-        <div className="flex flex-col justify-center items-center mt-4">
+        <div className="flex flex-col justify-center items-center mt-4 px-4">
           {notCompletedToday && (
             <div className="carousel gap-1 px-2 mt-4 portrait:w-full border border-primary border-opacity-50 rounded shadow-xl">
               <div>

@@ -26,11 +26,11 @@ export default async function DateByDateStatus({
         {datesAndStatus.sort(sortByDate).map((i: DatesAndStatusObj) => {
           return (
             <tr key={i.date}>
-              <td className="py-4 px-8 border-[.05rem]">
+              <td className="py-4 px-6 border-[.05rem]">
                 {convertDate(i.date, 'en-US')}
               </td>
               <td
-                className={`py-4 px-8 border-[.05rem] ${colorForStatus(
+                className={`py-4 px-6 border-[.05rem] ${colorForStatus(
                   i.status
                 )}`}
               >

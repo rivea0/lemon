@@ -25,8 +25,15 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
         <footer className="mt-auto text-center text-xs flex items-center justify-center gap-2 mb-1 pt-8">
-          {new Date().getFullYear()} &copy; Eda Eren &nbsp; |
-          <Link href="https://github.com/rivea0/lemon" className='text-primary flex items-center'>
+          {new Date().getFullYear()} &copy;
+          <Link href="https://rivea0.github.io/" className="text-primary">
+            Eda Eren
+          </Link>
+          |
+          <Link
+            href="https://github.com/rivea0/lemon"
+            className="text-primary flex items-center"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
