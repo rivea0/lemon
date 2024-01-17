@@ -22,7 +22,7 @@ export default async function Page({
   const challengeData = await getChallengeData(id);
   const today = toYearMonthDay(new Date().toDateString());
   const challengeColor = challengeData.id_color;
-  const startDateStr = challengeData.startDate;
+  const startDateStr = challengeData.start_date;
   const numberOfCompletedDays =
     datesAndStatus?.filter((i) => i.status === 'completed').length || 0;
   const latestIncompleteDate =

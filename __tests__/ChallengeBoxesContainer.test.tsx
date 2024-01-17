@@ -8,7 +8,7 @@ const mockCurrentChallenges: ChallengeObj[] = [
     title: 'challenge1',
     id_color: 'red',
     description: null,
-    startDate: '2020-01-01',
+    start_date: '2020-01-01',
     deleted: 0,
   },
   {
@@ -16,7 +16,7 @@ const mockCurrentChallenges: ChallengeObj[] = [
     title: 'challenge2',
     id_color: 'red',
     description: null,
-    startDate: '2020-01-02',
+    start_date: '2020-01-02',
     deleted: 0,
   },
 ];

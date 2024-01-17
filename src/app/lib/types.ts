@@ -35,6 +35,6 @@ export type ChallengeObj = {
   title: string;
   id_color: Colors;
   description: string | null;
-  startDate: string;
+  start_date: string;
   deleted: 0 | 1;
 };
