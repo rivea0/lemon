@@ -4,7 +4,12 @@ Lemon is a simple local "habit tracker" for [30-day challenges](https://www.very
 
 You can color-code each challenge, mark its status daily, and watch your progress.
 
-<!-- lemon-homepage-demo -->
+
+
+https://github.com/rivea0/lemon/assets/58330360/6c222715-9d38-4b03-8c73-38f8ce521c87
+
+
+
 
 ### Usage
 
@@ -44,7 +49,12 @@ npm run dev
 
 You can add a new challenge by going to the `/add-challenge` route, providing a title and choosing a color for the challenge (it defaults to yellow if you don't pick any). You can also provide a description, which is shown on the homepage underneath the challenge title, and you can also select a starting date of your own choosing. It defaults to today's date if you don't specifically provide one.
 
-<!-- lemon-add-demo -->
+
+
+https://github.com/rivea0/lemon/assets/58330360/1e7ea170-4938-418a-b761-6a0477124019
+
+
+
 
 ##### Homepage
 
@@ -68,7 +78,12 @@ Each challenge page has a "remove this challenge" button at the bottom, so you c
 
 You can select the completed challenges from the menu to see all your completed challenges. Each one also has a "delete this challenge permanently" button if you wish to completely delete it from the database.
 
-<!-- lemon-completed-challenges -->
+
+
+
+https://github.com/rivea0/lemon/assets/58330360/7af375b7-97eb-4241-a411-07e270e861f6
+
+
 
 <h5 id="export-data">Exporting your data</h5>
 
@@ -105,7 +120,12 @@ You can select one of the themes:
 - Nord
 - Autumn
 
-<!-- lemon-theme-switch -->
+
+
+https://github.com/rivea0/lemon/assets/58330360/dc098d5a-6160-4c89-9e38-d7a4ebb9b3d6
+
+
+
 
 You can extend the themes by choosing one from [DaisyUI themes](https://daisyui.com/docs/themes/), modifying `tailwind.config.ts` like so:
 
