@@ -5,13 +5,10 @@ import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
   // TODO: Delete the file after sending the response
-
   const requestHeaders = new Headers(request.headers);
   await generateFile();
-
-  const filePath = resolve('out.zip');
+  const filePath = resolve('./out.zip');
   const result = readFileSync(filePath);
-
   return new NextResponse(result, {
     headers: {
       ...requestHeaders,
@@ -34,8 +31,8 @@ async function generateFile() {
 
   test
     ?.generateAsync({ type: 'uint8array' })
-    .then(async function (content) {
-      const result = createWriteStream('out.zip');
+    .then(async (content) => {
+      const result = createWriteStream('./out.zip');
       result.write(content);
       return result;
     })
