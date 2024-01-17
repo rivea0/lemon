@@ -30,7 +30,7 @@ async function insertRow(db, data) {
   if (!description) {
     return new Promise((resolve, reject) => {
       db.run(
-        `INSERT INTO challenges(title, id_color, startDate) VALUES(?, ?, ?);`,
+        `INSERT INTO challenges(title, id_color, start_date) VALUES(?, ?, ?);`,
         title,
         id_color,
         startDate,
@@ -51,7 +51,7 @@ async function insertRow(db, data) {
   } else {
     return new Promise((resolve, reject) => {
       db.run(
-        `INSERT INTO challenges(title, id_color, description, startDate) VALUES(?, ?, ?, ?);`,
+        `INSERT INTO challenges(title, id_color, description, start_date) VALUES(?, ?, ?, ?);`,
         title,
         id_color,
         description,

@@ -30,7 +30,7 @@ function createTable(db) {
     title TEXT NOT NULL UNIQUE,
     id_color TEXT NOT NULL,
     description TEXT,
-    startDate TEXT,
+    start_date TEXT,
     deleted INT CHECK(deleted IN (0, 1)) DEFAULT 0
   );
   `,
