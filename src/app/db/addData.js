@@ -73,7 +73,7 @@ async function insertRow(db, data) {
   }
 }
 
-async function insertDates(challengeId, title, startDate, db) {
+async function insertDates(challengeId, startDate, db) {
   const dates = add30Days(startDate);
 
   for (const d of dates) {
