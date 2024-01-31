@@ -41,7 +41,7 @@ async function insertRow(db, data) {
             console.log(
               `Inserted a row to challenges with the ID: ${this.lastID}`
             );
-            insertDates(this.lastID, title, startDate, db).then(() =>
+            insertDates(this.lastID, startDate, db).then(() =>
               resolve()
             );
           }
@@ -63,7 +63,7 @@ async function insertRow(db, data) {
             console.log(
               `Inserted a row to challenges with the ID: ${this.lastID}`
             );
-            insertDates(this.lastID, title, startDate, db).then(() =>
+            insertDates(this.lastID, startDate, db).then(() =>
               resolve()
             );
           }
