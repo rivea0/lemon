@@ -25,6 +25,28 @@ export default async function updateRow(statusStr, id, dateStr) {
         return console.error(error);
       }
     });
+  }
+}
 
+export async function updateIdColor(id, newColor) {
+  if (existsSync(filepath)) {
+    const db = new sqlite3.Database(filepath);
+      db.run(
+        `UPDATE challenges SET id_color = ? WHERE id = ?`,
+        newColor,
+        id,
+        function (error) {
+          if (error) {
+            console.error(error.message);
+          }
+          console.log('Updated color');
+        }
+      );
+  } else {
+    const db = new sqlite3.Database(filepath, (error) => {
+      if (error) {
+        return console.error(error);
+      }
+    });
   }
 }

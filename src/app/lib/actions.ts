@@ -1,6 +1,6 @@
 'use server';
 
-import updateRow from '../db/updateData';
+import updateRow, { updateIdColor } from '../db/updateData';
 import insertInto from '../db/addData';
 import { removeFrom, deleteFrom } from '../db/deleteData';
 import { revalidatePath } from 'next/cache';
@@ -69,4 +69,16 @@ export async function deleteChallenge(formData: FormData) {
   await deleteFrom(data.challengeId);
 
   revalidatePath('/removed-challenges/');
+}
+
+export async function changeIdColor(formData: FormData) {
+  'use server';
+
+  const data = {
+    id_color: formData.get('id_color'),
+    id: formData.get('id'),
+  };
+
+  await updateIdColor(data.id, data.id_color);
+  revalidatePath('/');
 }

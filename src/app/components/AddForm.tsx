@@ -68,7 +68,7 @@ export default function AddForm() {
               required
             />
           </div>
-          <ColorDropdown />
+          <ColorDropdown title="Pick identifying color" />
           <div className="flex flex-col mb-6" tabIndex={0}>
             <label htmlFor="description">Description</label>
             <input
