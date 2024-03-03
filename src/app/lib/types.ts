@@ -38,3 +38,15 @@ export type ChallengeObj = {
   start_date: string;
   deleted: 0 | 1;
 };
+
+export type OngoingChallenge = (
+  | {
+      id: number;
+      title: string;
+      color: Colors;
+      description: string | null;
+      datesAndStatus: DatesAndStatusObj[];
+    }
+  | null
+  | undefined
+)[];

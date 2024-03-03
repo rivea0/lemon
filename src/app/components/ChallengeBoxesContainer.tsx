@@ -1,16 +1,10 @@
 import ChallengeBox from './ChallengeBox';
-import type { Colors, DatesAndStatusObj } from '../lib/types';
+import type { OngoingChallenge } from '../lib/types';
 
 export default function ChallengeBoxesContainer({
   challenges,
 }: {
-  challenges: ({
-    id: any;
-    title: string;
-    color: Colors;
-    description: string | null;
-    datesAndStatus: DatesAndStatusObj[];
-  } | null | undefined)[] | null;
+  challenges: OngoingChallenge;
 }) {
   return (
     <div className="flex justify-center">
