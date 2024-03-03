@@ -1,28 +1,36 @@
 import ChallengeBox from './ChallengeBox';
-import type { ChallengeObj } from '../lib/types';
+import type { Colors, DatesAndStatusObj } from '../lib/types';
 
 export default function ChallengeBoxesContainer({
-  currentChallenges,
+  challenges,
 }: {
-  currentChallenges: ChallengeObj[] | null;
+  challenges: ({
+    id: any;
+    title: string;
+    color: Colors;
+    description: string | null;
+    datesAndStatus: DatesAndStatusObj[];
+  } | null | undefined)[] | null;
 }) {
   return (
     <div className="flex justify-center">
       <div className="carousel gap-3 portrait:w-full px-2 max-w-full mt-4">
-        {currentChallenges &&
-          currentChallenges.map((challenge) => {
+        {challenges &&
+          challenges.map((challenge) => {
             return (
-              <div
-                className={`carousel-item font-light text-black cursor-pointer
+              challenge && (
+                <div
+                  className={`carousel-item font-light text-black cursor-pointer
               }`}
-                key={challenge.title}
-              >
-                <ChallengeBox
-                  title={challenge.title}
-                  color={challenge.id_color}
-                  description={challenge.description}
-                />
-              </div>
+                  key={challenge.title}
+                >
+                  <ChallengeBox
+                    title={challenge.title}
+                    color={challenge.color}
+                    description={challenge.description}
+                  />
+                </div>
+              )
             );
           })}
       </div>

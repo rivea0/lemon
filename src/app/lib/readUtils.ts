@@ -50,6 +50,11 @@ export async function getIdOfChallenge(title: string) {
   // });
 }
 
+export async function checkIfCompleted(id: number) {
+  const rows = await getChallengeDatesAndStatus(id);
+  return rows.filter((row) => row.status === 'completed').length === 30;
+}
+
 export async function getCurrentChallenges(): Promise<ChallengeObj[]> {
   const db = await getDB();
   return new Promise((resolve, reject) => {
@@ -109,7 +114,9 @@ export async function getChallengeDatesAndStatus(
   });
 }
 
-export async function getPostponedChallenges(): Promise<{challengeId: number, date: string}[]> {
+export async function getPostponedChallenges(): Promise<
+  { challengeId: number; date: string }[]
+> {
   const db = await getDB();
   return new Promise((resolve, reject) => {
     db.all(

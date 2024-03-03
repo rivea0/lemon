@@ -4,6 +4,7 @@ import {
   getChallengeDatesAndStatus,
   getIdOfChallenge,
   getChallengeData,
+  checkIfCompleted,
 } from '@/app/lib/readUtils';
 import { spanColors, sortByDate, toYearMonthDay } from '@/app/lib/utils';
 import ChallengeBoxesContainer from './components/ChallengeBoxesContainer';
@@ -22,10 +23,20 @@ export default async function Home() {
           if (!id) {
             return null;
           }
+
+          const isCompleted = await checkIfCompleted(id);
+          if (isCompleted) {
+            return null;
+          }
+
           const datesAndStatus = await getChallengeDatesAndStatus(id);
           const challengeData = await getChallengeData(id);
+
           if (challengeData && datesAndStatus) {
             const color = challengeData.id_color;
+            const title = challengeData.title;
+            const description = challengeData.description;
+
             datesAndStatus.map((d) => {
               if (
                 d.date === toYearMonthDay(new Date().toDateString()) &&
@@ -34,7 +45,8 @@ export default async function Home() {
                 notCompletedToday.push({ title: c.title, color: c.id_color });
               }
             });
-            return { id, color, datesAndStatus };
+
+            return { id, title, color, description, datesAndStatus };
           }
         })
       )
@@ -42,7 +54,7 @@ export default async function Home() {
 
   return (
     <>
-      <ChallengeBoxesContainer currentChallenges={currentChallenges} />
+      <ChallengeBoxesContainer challenges={challengesValues} />
       <div className="flex justify-center items-center mt-24">
         <Link
           href="/add-challenge"
