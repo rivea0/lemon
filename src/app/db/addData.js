@@ -16,6 +16,7 @@ async function insertInto(data) {
     }
   } else {
     console.error('File does not exist.');
+    process.exit(1);
   }
 }
 
@@ -94,6 +95,7 @@ async function insertDates(challengeId, startDate, db) {
       );
     } catch (error) {
       console.error(error.message);
+      process.exit(1);
     }
   }
 }
